@@ -1,15 +1,21 @@
-# Eigenportfolios via Random Matrix Theory
+# Eigenportfolios, Random Matrix Theory
 
-**Hypothesis.** Marchenko-Pastur denoising of the sample correlation matrix
+## Hypothesis
+
+Marchenko-Pastur denoising of the sample correlation matrix
 — keep eigenvalues above the noise edge λ₊ = σ²(1+√q)², flatten the bulk —
 should produce better minimum-variance portfolios than the raw sample matrix,
 with Ledoit-Wolf shrinkage as the practitioner benchmark.
 
-**Method.** Hand-rolled MP machinery (eigendecomposition, iterative Laloux
+## Methodology
+
+Hand-rolled MP machinery (eigendecomposition, iterative Laloux
 σ² renormalization, three cleaning variants, correlation→covariance handoff
 with diagonal reset), walk-forward min-var backtests over 2005–2024 on 151
 surviving large caps. IS 2005–2017 / OOS 2018–2024. Code:
 [`src/eigenrmt/`](projects/02_eigenportfolio_rmt/src/eigenrmt/).
+
+## Conclusion
 
 **RMT-cleaned, Ledoit-Wolf, and raw-sample min-var tied out of sample,
 and the tie survived five probes.** I went after it five ways: near-death
@@ -37,7 +43,7 @@ jupyter nbconvert --to notebook --execute --inplace projects/02_eigenportfolio_r
 
 ---
 
-## Repository layout
+## Layout
 
 - [`projects/02_eigenportfolio_rmt/`](./projects/02_eigenportfolio_rmt/) — the project: [`notebooks/exploration.ipynb`](./projects/02_eigenportfolio_rmt/notebooks/exploration.ipynb) (the full narrative analysis, committed with outputs), `src/` (the extracted package), `config.yaml` (all parameters, schema-validated), `DESIGN.md` (the pre-registered spec), per-module tests.
 - [`common/`](./common/) — shared library (data loading, metrics, causal HMM filter, plotting theme) used across the research program.
@@ -55,20 +61,10 @@ pytest
 
 Market data is downloaded on first notebook run and cached to `data/` (never committed).
 
-## Authorship & tooling
+## Authorship
 
 This project was built with AI-assisted development (Claude Code). All methodology,
 parameter choices, and research decisions are mine; every number-moving change has a
 paper trail in [`results/CHANGELOG.md`](results/CHANGELOG.md), and every core result
 is pinned by the test suite (`pytest` from the repo root). I can defend any line of
-this code — that is the standard the whole repository is written to.
-
-## Part of a three-project research program
-
-This repository is one of three companion projects sharing the `common/` library and the same IS/OOS discipline:
-
-1. [**Multi-Period Portfolio Optimization**](https://github.com/DR1PD/MultiPeriodPortfolioOptimization) — CVXPY, exact cost-model contract, the restraint result
-2. [**Eigenportfolios via Random Matrix Theory**](https://github.com/DR1PD/EigenportfoliosRMT) — Marchenko-Pastur denoising, the five-probe tie
-3. [**HMM Regime Detection**](https://github.com/DR1PD/HMMRegimeDetection) — causal filtering, the detector/strategy split
-
-*Author: David Colindres — M.S. Industrial & Systems Engineering + M.A. Econometrics, University of Oklahoma.*
+this code, and that is the standard the whole repository is written to.
